@@ -28,21 +28,16 @@
 		    $('#movies').html("<div style='text-align: center; color: red;'>Mam problem z wyświetleniem danych... :/ (musisz uruchomić aplikacje za pomocą MAVEN)</div>");
 		});
 
-        function deleteMovie(movieId) {
-            $.ajax({
-                url: `http://127.0.0.1:8080/api/movies/${movieId}`,
-                type: 'delete',
-                contentType: 'application/json',
-                success: function () {
-                    console.log('Movie deleted: ', movieId);
-                },
-                error: function() {
-                    $('#target').html("<b style='color: red;'>Coś poszło nie tak... Nie można usunąć filmu</b>");
-                    console.log('movieId: ', movieId);
-                }
-            });
-            location.reload();
-        }
+		function deleteMovie(id) {
+			fetch('http://127.0.0.1:8080/api/movies/' + id, {
+				method: 'DELETE',
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8'
+				},
+			}).then(response => response.json())
+					.catch(err => console.log(err))
+					.then( () => { window.location.reload(true) });
+		}
 
 		function isImage(url) {
             return url.indexOf(".jpg") !== -1 || url.indexOf(".png") !== -1;

@@ -46,7 +46,8 @@ public class MovieApiController {
     }
 
     @CrossOrigin
-    @DeleteMapping(value = "/movies/{movieId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    //@DeleteMapping(value = "/movies/{movieId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value="/movies/{movieId}",method = { RequestMethod.GET, RequestMethod.DELETE})
     public ResponseEntity<Void> deleteMovie(@PathVariable Long movieId) {
         LOGGER.info("delete movie: {}", movieId);
 
