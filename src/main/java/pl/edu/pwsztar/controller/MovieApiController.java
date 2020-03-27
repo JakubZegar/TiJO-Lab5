@@ -48,9 +48,9 @@ public class MovieApiController {
     @CrossOrigin
     @RequestMapping(value="/movies/{movieId}",method = { RequestMethod.GET, RequestMethod.DELETE})
     public ResponseEntity<Void> deleteMovie(@PathVariable Long movieId) {
-        LOGGER.info("delete movie: {}", movieId);
 
         if( movieService.checkIfMovieExists(movieId).isPresent() ){
+            LOGGER.info("delete movie: {}", movieId);
             movieService.deleteMovie(movieId);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
