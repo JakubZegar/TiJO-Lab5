@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Component
 public class MovieListMapper {
 
-    private Converter<List<Movie>,List<MovieDto>> listListConverter = (List<Movie> movies) -> {
+    private Converter<List<Movie>,List<MovieDto>> listMovieToListMovieDtoConverter = (List<Movie> movies) -> {
         List<MovieDto> moviesDto =  movies.stream()
                 .map(movie -> {
                     MovieDto movieDto = new MovieDto();
@@ -28,6 +28,6 @@ public class MovieListMapper {
 
     public List<MovieDto> mapToDto(List<Movie> movies) {
 
-        return listListConverter.convert(movies);
+        return listMovieToListMovieDtoConverter.convert(movies);
     }
 }
