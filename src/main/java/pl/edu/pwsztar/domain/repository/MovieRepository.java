@@ -8,10 +8,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.edu.pwsztar.domain.entity.Movie;
 
+import java.util.Optional;
+
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long>, CrudRepository<Movie, Long> {
 
     @Modifying
     @Query("DELETE FROM Movie m WHERE m.movieId = :movieId")
     void deleteById(@Param("movieId") Long movieId);
+
 }

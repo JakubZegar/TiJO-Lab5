@@ -7,7 +7,7 @@ import pl.edu.pwsztar.domain.entity.Movie;
 @Component
 public class MovieMapper {
 
-    public Movie mapToEntity(CreateMovieDto createMovieDto) {
+    private Converter<CreateMovieDto, Movie> movieCreateMovieDtoConverter = (CreateMovieDto createMovieDto) -> {
         Movie movie = new Movie();
 
         movie.setImage(createMovieDto.getImage());
@@ -15,5 +15,9 @@ public class MovieMapper {
         movie.setYear(createMovieDto.getYear());
 
         return movie;
+    };
+
+    public Movie mapToEntity(CreateMovieDto createMovieDto) {
+        return movieCreateMovieDtoConverter.convert(createMovieDto);
     }
 }
