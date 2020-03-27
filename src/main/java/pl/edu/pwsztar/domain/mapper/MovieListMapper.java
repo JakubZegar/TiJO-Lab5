@@ -6,25 +6,28 @@ import pl.edu.pwsztar.domain.entity.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class MovieListMapper {
 
-    public List<MovieDto> mapToDto(List<Movie> movies) {
-        List<MovieDto> moviesDto = new ArrayList<>();
-
-        for(Movie movie: movies) {
-            MovieDto movieDto = new MovieDto();
-
-            movieDto.setMovieId(movie.getMovieId());
-            movieDto.setTitle(movie.getTitle());
-            movieDto.setImage(movie.getImage());
-            movieDto.setYear(movie.getYear());
-
-            moviesDto.add(movieDto);
-
-        }
+    private Converter<List<Movie>,List<MovieDto>> listListConverter = (List<Movie> movies) -> {
+        List<MovieDto> moviesDto =  movies.stream()
+                .map(movie -> {
+                    MovieDto movieDto = new MovieDto();
+                    movieDto.setMovieId(movie.getMovieId());
+                    movieDto.setTitle(movie.getTitle());
+                    movieDto.setImage(movie.getImage());
+                    movieDto.setYear(movie.getYear());
+                    return movieDto;
+                })
+                .collect(Collectors.toList());
 
         return moviesDto;
+    };
+
+    public List<MovieDto> mapToDto(List<Movie> movies) {
+
+        return listListConverter.convert(movies);
     }
 }

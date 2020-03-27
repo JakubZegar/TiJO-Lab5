@@ -46,12 +46,15 @@ public class MovieApiController {
     }
 
     @CrossOrigin
-    //@DeleteMapping(value = "/movies/{movieId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value="/movies/{movieId}",method = { RequestMethod.GET, RequestMethod.DELETE})
     public ResponseEntity<Void> deleteMovie(@PathVariable Long movieId) {
         LOGGER.info("delete movie: {}", movieId);
 
-        movieService.deleteMovie(movieId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        if( movieService.checkIfMovieExists(movieId).isPresent() ){
+            movieService.deleteMovie(movieId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

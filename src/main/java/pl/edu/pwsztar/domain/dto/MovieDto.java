@@ -11,6 +11,9 @@ public class MovieDto implements Serializable {
     public MovieDto() {
     }
 
+    public MovieDto(Long movieId, String title, String image, Integer year) {
+    }
+
     public Long getMovieId() {
         return movieId;
     }

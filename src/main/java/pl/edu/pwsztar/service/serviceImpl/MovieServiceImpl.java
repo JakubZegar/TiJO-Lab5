@@ -13,6 +13,7 @@ import pl.edu.pwsztar.domain.repository.MovieRepository;
 import pl.edu.pwsztar.service.MovieService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -47,6 +48,12 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void deleteMovie(Long movieId) {
+        Optional<Long> id;
         movieRepository.deleteById(movieId);
+    }
+
+    @Override
+    public Optional<Movie> checkIfMovieExists(Long movieID){
+        return movieRepository.findById(movieID);
     }
 }
