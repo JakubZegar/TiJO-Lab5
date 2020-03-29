@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class MovieListMapper {
+public class MovieListMapper implements Converter<List<Movie>,List<MovieDto>> {
 
     private Converter<List<Movie>,List<MovieDto>> listMovieToListMovieDtoConverter = (List<Movie> movies) -> {
         List<MovieDto> moviesDto =  movies.stream()
@@ -26,8 +26,9 @@ public class MovieListMapper {
         return moviesDto;
     };
 
-    public List<MovieDto> mapToDto(List<Movie> movies) {
 
+    @Override
+    public List<MovieDto> convert(List<Movie> movies) {
         return listMovieToListMovieDtoConverter.convert(movies);
     }
 }
