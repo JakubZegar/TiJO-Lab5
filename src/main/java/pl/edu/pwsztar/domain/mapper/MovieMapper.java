@@ -5,7 +5,7 @@ import pl.edu.pwsztar.domain.dto.CreateMovieDto;
 import pl.edu.pwsztar.domain.entity.Movie;
 
 @Component
-public class MovieMapper {
+public class MovieMapper implements Converter<CreateMovieDto,Movie> {
 
     private Converter<CreateMovieDto, Movie> movieCreateMovieDtoConverter = (CreateMovieDto createMovieDto) -> {
         Movie movie = new Movie();
@@ -17,7 +17,9 @@ public class MovieMapper {
         return movie;
     };
 
-    public Movie mapToEntity(CreateMovieDto createMovieDto) {
+    @Override
+    public Movie convert(CreateMovieDto createMovieDto) {
         return movieCreateMovieDtoConverter.convert(createMovieDto);
+
     }
 }

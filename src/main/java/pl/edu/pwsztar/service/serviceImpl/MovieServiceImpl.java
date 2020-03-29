@@ -37,12 +37,12 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<MovieDto> findAll() {
         List<Movie> movies = movieRepository.findAll();
-        return movieListMapper.mapToDto(movies);
+        return movieListMapper.convert(movies);
     }
 
     @Override
     public void creatMovie(CreateMovieDto createMovieDto) {
-        Movie movie = movieMapper.mapToEntity(createMovieDto);
+        Movie movie = movieMapper.convert(createMovieDto);
         movieRepository.save(movie);
     }
 
